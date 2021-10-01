@@ -1,0 +1,34 @@
+.Alien1_wrapper {
+  position: absolute;
+  top: 150px;
+  left: 50px;
+}
+
+.Alien2_wrapper {
+  position: absolute;
+  top: 500px;
+  left: 200px;
+}
+
+.Alien3_wrapper {
+  position: absolute;
+  top: 200px;
+  left: 500px;
+}
+
+.Alien4_wrapper {
+  position: absolute;
+  top: 100px;
+  left: 900px;
+}
+
+.Alien5_wrapper {
+  position: absolute;
+  top: 300px;
+  left: 1000px;
+}
+
+
+.image {
+  object-fit: cover;
+}

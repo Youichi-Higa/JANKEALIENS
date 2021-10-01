@@ -1,4 +1,4 @@
-import { Header } from "../components/Headear";
+import { Header } from "../components/Header";
 
 export default function battle() {
   return (
