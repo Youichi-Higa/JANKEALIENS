@@ -1,6 +1,7 @@
 import Link from "next/link";
 import styles from "../styles/Home.module.css";
 
+
 const Web3 = require("web3");
 
 export const Header = () => {
