@@ -1,14 +1,16 @@
 import Link from "next/link";
+import { useState } from "react";
 import styles from "../styles/Home.module.css";
 
-
-const Web3 = require("web3");
-
 export const Header = () => {
+  const [isAccount, setIsAccount] = useState(false);
+
   const onClickMetamaskConnect = async () => {
     // ログイン
-    await window.ethereum.request({ method: "eth_requestAccounts" });
-    window.web3 = new Web3(window.ethereum);
+    const accounts = await ethereum.request({ method: "eth_requestAccounts" });
+    if (typeof accounts !== "undefined") {
+      setIsAccount(true);
+    }
   };
 
   return (
@@ -28,9 +30,13 @@ export const Header = () => {
           </Link>
         </div>
       </div>
-      <button className={styles.button} onClick={onClickMetamaskConnect}>
-        Wallet
-      </button>
+      {isAccount ? (
+        <button className={styles.button}>ユーザー名</button>
+      ) : (
+        <button className={styles.button} onClick={onClickMetamaskConnect}>
+          Wallet
+        </button>
+      )}
     </header>
   );
 };
