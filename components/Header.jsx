@@ -1,3 +1,4 @@
+import { Heading } from "@chakra-ui/layout";
 import Link from "next/link";
 import { useState } from "react";
 import styles from "../styles/Home.module.css";
@@ -16,7 +17,7 @@ export const Header = () => {
   return (
     <header className={styles.header}>
       <Link href="/" passHref>
-        <h1 className={styles.headerTitle}>JANKEALIENS</h1>
+        <Heading className={styles.headerTitle}>JANKEALIENS</Heading>
       </Link>
       <div className={styles.headerMenu}>
         <div className={styles.headerMenuItem}>
@@ -31,7 +32,7 @@ export const Header = () => {
         </div>
       </div>
       {isAccount ? (
-        <button className={styles.button}>ユーザー名</button>
+        <button className={styles.button}>◯◯さん</button>
       ) : (
         <button className={styles.button} onClick={onClickMetamaskConnect}>
           Wallet
