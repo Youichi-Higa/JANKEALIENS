@@ -1,5 +1,5 @@
 import { Flex } from "@chakra-ui/layout";
-import { Card } from "../components/card";
+import { Card } from "../components/Card";
 import { Header } from "../components/Header";
 
 export default function catalog() {
