@@ -1,13 +1,18 @@
-import { Header } from "../components/Header";
-import styles from "../styles/battle.module.css";
+import { Flex } from "@chakra-ui/layout";
+import { PlayerCard } from "../components/PlayerCard";
 
 export default function battle() {
+  const metadataUrl = [
+    "https://gateway.pinata.cloud/ipfs/QmS1BeXdcBTv9KdKkmrhvGwdL7d55LnA8cgreMY7ofSwDz",
+    "https://gateway.pinata.cloud/ipfs/QmXzJ7mvf4ffqopsgAWPsGSENVmVWxHooYj6gQje2wQA13",
+  ];
+
+  // このページでHPとかのパラメータをuseStateで定義して、propsで渡す子コンポーネントに渡さないといけないかも
+
   return (
-    <div>
-      <Header />
-      <div className={styles.button_wrapper}>
-        <button className={styles.button}>バトルルームに入室する</button>
-      </div>
-    </div>
+    <Flex>
+      <PlayerCard metadataUrl={metadataUrl[0]} />
+      <PlayerCard metadataUrl={metadataUrl[1]} />
+    </Flex>
   );
 }

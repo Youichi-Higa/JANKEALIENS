@@ -10,6 +10,7 @@ export const Header = () => {
     // ログイン
     const accounts = await ethereum.request({ method: "eth_requestAccounts" });
     if (typeof accounts !== "undefined") {
+      console.log(accounts[0]);
       setIsAccount(true);
     }
   };
@@ -26,7 +27,7 @@ export const Header = () => {
           </Link>
         </div>
         <div className={styles.headerMenuItem}>
-          <Link href="/battle">
+          <Link href="/select">
             <a>Battle</a>
           </Link>
         </div>

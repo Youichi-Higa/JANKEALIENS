@@ -14,7 +14,6 @@ export const Card = (props) => {
     const getMetadata = async () => {
       const result = await axios.get(url);
       setMetadata(result.data);
-      return result;
     };
     getMetadata();
   }, []);
@@ -34,7 +33,7 @@ export const Card = (props) => {
         justifyContent="space-around"
       >
         {metadata.image && (
-          <Image src={metadata.image} alt="宇宙人１" width={240} height={240} />
+          <Image src={metadata.image} alt="宇宙人" width={240} height={240} />
         )}
 
         <Box textAlign="center">
