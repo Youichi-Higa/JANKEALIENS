@@ -2,7 +2,7 @@ import { Box, Text } from "@chakra-ui/layout";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-export const PlayerCard = (props) => {
+export const CpuCard = (props) => {
   const { metadataUrl } = props;
 
   // pinataに保存してあるメタデータの取得
@@ -28,16 +28,8 @@ export const PlayerCard = (props) => {
     getMetadata();
   }, []);
 
-  const selectRock = () => {
-    alert("グー");
-  };
-
-  const selectScissors = () => {
-    alert("チョキ");
-  };
-
-  const selectPaper = () => {
-    alert("パー");
+  const selectHand = () => {
+    alert("click");
   };
 
   return (
@@ -61,16 +53,12 @@ export const PlayerCard = (props) => {
         <Box textAlign="center">
           <Text fontSize="3xl">HP　{hp}</Text>
           <br />
-          <Text fontSize="xl">あなたの手を選択↓</Text>
-          <Text fontSize="3xl" onClick={selectRock}>
+          <Text fontSize="xl">あいての手</Text>
+          <Text fontSize="3xl" onClick={selectHand}>
             ✊　{rock}
           </Text>
-          <Text fontSize="3xl" onClick={selectScissors}>
-            ✌️　{scissors}
-          </Text>
-          <Text fontSize="3xl" onClick={selectPaper}>
-            ✋　{paper}
-          </Text>
+          <Text fontSize="3xl">✌️　{scissors}</Text>
+          <Text fontSize="3xl">✋　{paper}</Text>
         </Box>
       </Box>
     </>
