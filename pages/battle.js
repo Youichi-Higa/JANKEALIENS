@@ -1,11 +1,16 @@
-import { Flex } from "@chakra-ui/layout";
 import { BattleWindow } from "../components/BattleWindow";
+import { Header } from "../components/Header";
+
+import { Flex } from "@chakra-ui/layout";
 import { CpuCard } from "../components/CpuCard";
 import { PlayerCard } from "../components/PlayerCard";
 
 export default function battle() {
   return (
-    <BattleWindow />
+    <>
+      <Header />
+      <BattleWindow />
+    </>
     // <Flex>
     //   <PlayerCard metadataUrl={metadataUrl[0]} />
     //   <CpuCard metadataUrl={metadataUrl[1]} />

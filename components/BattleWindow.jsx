@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 export const BattleWindow = (props) => {
   const axios = require("axios");
 
-  // playerのメタデータ取得
+  // playerのパラメータ取得
   const playerMetadataUrl =
     "https://gateway.pinata.cloud/ipfs/QmS1BeXdcBTv9KdKkmrhvGwdL7d55LnA8cgreMY7ofSwDz";
   const [playerImageUrl, setPlayerImageUrl] = useState("");
@@ -27,7 +27,7 @@ export const BattleWindow = (props) => {
     getMetadata();
   }, []);
 
-  // cpuのメタデータ取得
+  // cpuのパラメータ取得
   const cpuMetadataUrl =
     "https://gateway.pinata.cloud/ipfs/QmXzJ7mvf4ffqopsgAWPsGSENVmVWxHooYj6gQje2wQA13";
   const [cpuImageUrl, setCpuImageUrl] = useState("");
@@ -128,8 +128,8 @@ export const BattleWindow = (props) => {
         <Box
           bg="white"
           w="300px"
-          h="540px"
-          m="60px"
+          h="500px"
+          m="30px"
           borderRadius="2xl"
           boxShadow="2xl"
           display="flex"
@@ -185,8 +185,8 @@ export const BattleWindow = (props) => {
         <Box
           bg="white"
           w="300px"
-          h="540px"
-          m="60px"
+          h="500px"
+          m="30px"
           borderRadius="2xl"
           boxShadow="2xl"
           display="flex"
@@ -210,6 +210,7 @@ export const BattleWindow = (props) => {
       </Flex>
       <Text fontSize="2xl">{message}</Text>
       <Text fontSize="2xl">{damage}</Text>
+      {/* <Text fontSize="2xl">{rps}</Text> */}
     </>
   );
 };

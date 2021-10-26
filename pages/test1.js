@@ -4,36 +4,33 @@ const web3 = new Web3(
   "https://eth-rinkeby.alchemyapi.io/v2/yMUx5pobNFkfpdw1irSkIrgXIWoIIIWt"
 );
 
-// ＜キャラ選択①＞　※これ無理かも
-// ○各トークンの所有者アドレスを取得（※IDの順番通りに取れない）
-// ○現在ウォレットに繋いでいる人のアドレスを取得
-// そのアドレスが所有している全てのtokenIdを取得
-// メタデータ取得
-// 画面に表示
-// カード部分をクリックしたら選択してバトルページへ
-
 export default function test1() {
   const jankealiensABI = require("../MyNFT.json");
   const jankealiensAddress = "0x94fe135d72c57238df64eb6d4b3e7764b8a1cbbb";
   const jankealiens = new web3.eth.Contract(jankealiensABI, jankealiensAddress);
 
-  // トークンの総数 コントラクトから取得する方法がわからないのでべた打ち
+  // トークンの総数 コントラクトから取得できないコードでデプロイしてしまったのでべた打ち
   const totalTokens = 8;
+
   const owners = [];
 
-  // TokenIdは１からスタート
-  // 発行していないTokenIdまでループさせるとエラーになる
-  for (let tokenId = 1; tokenId < totalTokens + 1; tokenId++) {
+  // 再帰処理でループしたらTokenIdの順番通り取れた
+  const getAllOwners = (tokenId) => {
     jankealiens.methods
       .ownerOf(tokenId)
       .call()
       .then((data) => {
         owners.push(data);
+        tokenId++;
+        if (tokenId < totalTokens + 1) getAllOwners(tokenId); // ここでループする
+      })
+      .catch((error) => {
+        console.error(`tokenId:${tokenId}は存在していない`, error);
       });
-  }
+  };
+  getAllOwners(1);
 
-  // TokenIDの順番通りに配列に入っていかない。ランダムになってる
-  console.log("配列のアドレス", owners);
+  console.log("アドレスの配列", owners);
 
   // Metamaskと繋いでいるaddressを取得する関数を定義
   const getAddress = async () => {
@@ -52,8 +49,6 @@ export default function test1() {
         userTokenId.push(i);
       }
     }
-    // console.log("アクセスしているアドレス", address);
-    // console.log("所持しているトークンID", userTokenId);
   });
 
   return (
@@ -70,6 +65,17 @@ export default function test1() {
 //   console.log(account);
 // }
 // getAccount();
+
+// TokenIdは１からスタート
+// 発行していないTokenIdまでループさせるとエラーになる
+// for (let tokenId = 1; tokenId < totalTokens + 1; tokenId++) {
+//   jankealiens.methods
+//     .ownerOf(tokenId)
+//     .call()
+//     .then((data) => {
+//       owners.push(data);
+//     });
+// }
 
 // この処理はOK
 // const array1 = [1, "2sid", 3, "2sid", "2sid", 6, "2sid", 8, 9, 10];

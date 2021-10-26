@@ -23,10 +23,18 @@ export default function test2() {
   // };
 
   jankealiens.methods
-    .tokenURI(4)
+    .tokenURI(9)
     .call()
     .then((data) => {
       console.log("メタデータURI", data);
+    })
+    .catch((error) => console.error(error));
+
+  jankealiens.methods
+    .ownerOf(3)
+    .call()
+    .then((data) => {
+      console.log("所有者のアドレス", data);
     });
 
   // Metamaskと繋いでいるaddressを取得する関数を定義
