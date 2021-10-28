@@ -4,49 +4,40 @@ const web3 = new Web3(
   "https://eth-rinkeby.alchemyapi.io/v2/yMUx5pobNFkfpdw1irSkIrgXIWoIIIWt"
 );
 
-// ＜キャラ選択②＞
-// TokenIDを入力して決定ボタンを押す　又は　番号を表示しておいてクリック
-// TokenIDとアクセスしている人のアドレスが一致したらじゃんけんページへ
-
 export default function test2() {
   const jankealiensABI = require("../MyNFT.json");
   const jankealiensAddress = "0x94fe135d72c57238df64eb6d4b3e7764b8a1cbbb";
   const jankealiens = new web3.eth.Contract(jankealiensABI, jankealiensAddress);
 
-  // const selectAlien = async () => {
-  //   const tokenURI = await jankealiens.methods
-  //     .tokenURI(4)
-  //     .call()
-  //     .then((data) => {
-  //       console.log("メタデータURI", data);
-  //     });
-  // };
-
-  jankealiens.methods
-    .tokenURI(9)
-    .call()
-    .then((data) => {
-      console.log("メタデータURI", data);
-    })
-    .catch((error) => console.error(error));
-
-  jankealiens.methods
-    .ownerOf(3)
-    .call()
-    .then((data) => {
-      console.log("所有者のアドレス", data);
-    });
-
-  // Metamaskと繋いでいるaddressを取得する関数を定義
-  const getAddress = async () => {
+  // Metamaskと繋いでいるaddressを取得
+  const getUserAddress = async () => {
     const accounts = await ethereum.request({
       method: "eth_requestAccounts",
     });
     return accounts[0];
   };
 
-  getAddress().then((address) => {
-    console.log("アクセスしているアドレス", address);
+  // promise.allで所有者のアドレスをTokenIdを順番通りに取得
+  var tasks = [];
+
+  const getAllOwnerAddress = (tokenId) => {
+    return new Promise((resolve, reject) => {
+      const result = jankealiens.methods.ownerOf(tokenId).call();
+      resolve(result);
+    });
+  };
+
+  for (let i = 1; i < 10; i++) {
+    tasks.push(
+      getAllOwnerAddress(i)
+        .then((res) => res)
+        .catch((error) => console.log(`TokenID:${i}は存在しない`))
+    );
+  }
+
+  Promise.all(tasks).then((owners) => {
+    // ownersは上記apiのレスポンスの配列
+    console.log(owners);
   });
 
   return (
