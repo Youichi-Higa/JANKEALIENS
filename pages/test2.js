@@ -9,10 +9,16 @@ export default function test2() {
   const jankealiensAddress = "0x94fe135d72c57238df64eb6d4b3e7764b8a1cbbb";
   const jankealiens = new web3.eth.Contract(jankealiensABI, jankealiensAddress);
 
+  // トークンの総数 コントラクトから取得できないコードでデプロイしてしまったのでべた打ち
+  const totalTokens = 8;
+
+  // 最初のTokenId 提出する時は「3」を入力する
+  const firstTokenId = 3;
+
   // Metamaskと繋いでいるaddressを取得
   const getUserAddress = async () => {
     const accounts = await ethereum.request({
-      method: "eth_requestAccounts",
+      method: "eth_requestAccounts", //Metamaskでアドレスを取得すると全て小文字で取得される
     });
     return accounts[0];
   };
@@ -22,23 +28,32 @@ export default function test2() {
 
   const getAllOwnerAddress = (tokenId) => {
     return new Promise((resolve, reject) => {
-      const result = jankealiens.methods.ownerOf(tokenId).call();
+      const result = jankealiens.methods.ownerOf(tokenId).call(); //web3.jsでアドレスを取得すると大文字と小文字が混在
       resolve(result);
     });
   };
 
-  for (let i = 1; i < 10; i++) {
+  for (let i = firstTokenId; i < totalTokens + 1; i++) {
     tasks.push(
       getAllOwnerAddress(i)
-        .then((res) => res)
+        .then((res) => res.toLowerCase()) //ここで全て小文字に変換
         .catch((error) => console.log(`TokenID:${i}は存在しない`))
     );
   }
 
-  Promise.all(tasks).then((owners) => {
-    // ownersは上記apiのレスポンスの配列
-    console.log(owners);
-  });
+  const getUserAllTokenId = async () => {
+    const userAddress = await getUserAddress();
+    const allOwnerAddress = await Promise.all(tasks);
+
+    const userTokenId = [];
+    for (let i = 0; i < allOwnerAddress.length; i++) {
+      if (userAddress == allOwnerAddress[i]) {
+        userTokenId.push(i + 3); //本番環境で使うTokenIdは「3」からなので、3をプラスする
+      }
+    }
+    console.log("ユーザー所有のトークンID", userTokenId);
+  };
+  getUserAllTokenId();
 
   return (
     <>
