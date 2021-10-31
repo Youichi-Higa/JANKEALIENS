@@ -1,10 +1,6 @@
-import { Flex } from "@chakra-ui/layout";
-import { resolveHref } from "next/dist/shared/lib/router/router";
-import { useEffect, useState } from "react";
 import { Header } from "../components/Header";
-import { MyAlien } from "../components/MyAlien";
 
-export default function Select() {
+export default function test() {
   const Web3 = require("web3");
   const web3 = new Web3(
     "https://eth-rinkeby.alchemyapi.io/v2/yMUx5pobNFkfpdw1irSkIrgXIWoIIIWt"
@@ -16,24 +12,16 @@ export default function Select() {
   const totalTokens = 8; // トークンの総数 コントラクトから取得できないコードでデプロイしてしまったのでべた打ち
   const firstTokenId = 3; // 最初のTokenId 提出する時は「3」を入力する
 
-  const [userAddress, setUserAddress] = useState("");
-  const [allOwnerAddress, setAllOwnerAddress] = useState([]);
-  // const [userTokenId, setUserTokenId] = useState([]);
-  // const [metadataUri, setMetadataUri] = useState([]);
-
   // Metamaskと繋いでいるaddressを取得
   const getUserAddress = async () => {
     const accounts = await ethereum.request({
       method: "eth_requestAccounts", //Metamaskでアドレスを取得すると全て小文字で取得される
     });
-    setUserAddress(accounts[0]);
     return accounts[0];
   };
-  getUserAddress();
-  // console.log("ユーザーアドレス", userAddress);
 
   // promise.allで所有者のアドレスをTokenIdの順番通りに取得
-  let tasks = [];
+  var tasks = [];
 
   const getAllOwnerAddress = (tokenId) => {
     return new Promise((resolve, reject) => {
@@ -50,34 +38,38 @@ export default function Select() {
     );
   }
 
-  useEffect(() => {
-    Promise.all(tasks).then((res) => {
-      setAllOwnerAddress([...res]);
-    });
-  }, []);
+  const getUserAllTokenId = async () => {
+    const userAddress = await getUserAddress();
+    const allOwnerAddress = await Promise.all(tasks);
 
-  // console.log(allOwnerAddress);
+    const userTokenId = [];
 
-  const userTokenId = [];
-
-  for (let i = 0; i < allOwnerAddress.length; i++) {
-    if (userAddress == allOwnerAddress[i]) {
-      userTokenId.push(i + 3); //本番環境で使うTokenIdは「3」からなので、3をプラスする
+    for (let i = 0; i < allOwnerAddress.length; i++) {
+      if (userAddress == allOwnerAddress[i]) {
+        userTokenId.push(i + 3); //本番環境で使うTokenIdは「3」からなので、3をプラスする
+      }
     }
-  }
 
-  console.log("ユーザー所有のトークンID", userTokenId);
+    console.log("ユーザー所有のトークンID", userTokenId);
+
+
+    const metadataUri = [];
+    for (let i = 0; i < userTokenId.length; i++) {
+      jankealiens.methods
+        .tokenURI(userTokenId[i])
+        .call()
+        .then((data) => {
+          metadataUri.push(data);
+        });
+    }
+    console.log("メタデータURI", metadataUri);
+  };
+  getUserAllTokenId();
 
   return (
     <>
       <Header />
-      <p>戦わせる宇宙人を選択してください</p>
-
-      <Flex wrap="wrap">
-        {userTokenId.map((item, index) => (
-          <MyAlien key={index} tokenId={item} />
-        ))}
-      </Flex>
+      <p>テスト１ページ</p>
     </>
   );
 }

@@ -1,16 +1,25 @@
 import { Box, Text } from "@chakra-ui/layout";
 import Image from "next/image";
-import { useEffect, useState } from "react";
 
-export const PlayerCard = (props) => {
-  const { metadataUri } = props;
-  console.log("コンポーネント",metadataUri)
+import { useState, useEffect } from "react";
+
+export const MyAlien = (props) => {
+  const { tokenId } = props;
+  // console.log("hoge", tokenId);
+
+  const Web3 = require("web3");
+  const web3 = new Web3(
+    "https://eth-rinkeby.alchemyapi.io/v2/yMUx5pobNFkfpdw1irSkIrgXIWoIIIWt"
+  );
+  const jankealiensABI = require("../MyNFT.json");
+  const jankealiensAddress = "0x94fe135d72c57238df64eb6d4b3e7764b8a1cbbb";
+  const jankealiens = new web3.eth.Contract(jankealiensABI, jankealiensAddress);
 
   // pinataに保存してあるメタデータの取得
   const axios = require("axios");
-  const url = metadataUri;
 
   const [imageUrl, setImageUrl] = useState("");
+  const [name, setName] = useState("");
   const [hp, setHp] = useState("");
   const [rock, setRock] = useState("");
   const [scissors, setScissors] = useState("");
@@ -18,9 +27,11 @@ export const PlayerCard = (props) => {
 
   useEffect(() => {
     const getMetadata = async () => {
-      const result = await axios.get(url);
+      const metadataUri = await jankealiens.methods.tokenURI(tokenId).call();
+      const result = await axios.get(metadataUri);
       console.log("useEffectの中", result);
       setImageUrl(result.data.image);
+      setName(result.data?.name);
       setHp(result.data.attributes?.hp);
       setRock(result.data.attributes?.attack.rock);
       setScissors(result.data.attributes?.attack.scissors);
@@ -33,9 +44,9 @@ export const PlayerCard = (props) => {
     <>
       <Box
         bg="white"
-        w="300px"
-        h="540px"
-        m="60px"
+        w="320px"
+        h="500px"
+        m="30px"
         borderRadius="2xl"
         boxShadow="2xl"
         display="flex"
@@ -48,11 +59,12 @@ export const PlayerCard = (props) => {
         )}
 
         <Box textAlign="center">
-          <Text fontSize="3xl">HP　{hp}</Text>
+          <Text fontSize="3xl">{name}</Text>
           <br />
-          <Text fontSize="3xl">✊　{rock}</Text>
-          <Text fontSize="3xl">✌️　{scissors}</Text>
-          <Text fontSize="3xl">✋　{paper}</Text>
+          <Text fontSize="2xl">HP　{hp}</Text>
+          <Text fontSize="2xl">✊　{rock}</Text>
+          <Text fontSize="2xl">✌️　{scissors}</Text>
+          <Text fontSize="2xl">✋　{paper}</Text>
         </Box>
       </Box>
     </>

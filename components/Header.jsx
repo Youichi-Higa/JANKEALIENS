@@ -10,7 +10,7 @@ export const Header = () => {
     // ログイン
     const accounts = await ethereum.request({ method: "eth_requestAccounts" });
     if (typeof accounts !== "undefined") {
-      console.log(accounts[0]);
+      console.log("ヘッダー", accounts[0]);
       setIsAccount(true);
     }
   };
