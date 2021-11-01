@@ -1,19 +1,14 @@
+import { useRouter } from "next/dist/client/router";
 import { BattleWindow } from "../components/BattleWindow";
 import { Header } from "../components/Header";
 
-import { Flex } from "@chakra-ui/layout";
-import { CpuCard } from "../components/CpuCard";
-import { PlayerCard } from "../components/PlayerCard";
-
-export default function battle() {
+export default function Battle() {
+  const router = useRouter();
+  console.log("バトルページ", router.query.tokenid);
   return (
     <>
       <Header />
       <BattleWindow />
     </>
-    // <Flex>
-    //   <PlayerCard metadataUrl={metadataUrl[0]} />
-    //   <CpuCard metadataUrl={metadataUrl[1]} />
-    // </Flex>
   );
 }

@@ -1,6 +1,6 @@
 import { Box, Text } from "@chakra-ui/layout";
 import Image from "next/image";
-
+import Link from "next/link";
 import { useState, useEffect } from "react";
 
 export const MyAlien = (props) => {
@@ -41,7 +41,7 @@ export const MyAlien = (props) => {
   }, []);
 
   return (
-    <>
+    <Link href={{ pathname: "/battle", query: { tokenid: tokenId } }}>
       <Box
         bg="white"
         w="320px"
@@ -53,6 +53,10 @@ export const MyAlien = (props) => {
         flexDirection="column"
         alignItems="center"
         justifyContent="space-around"
+        cursor="pointer"
+        _hover={{
+          background: "orange.100",
+        }}
       >
         {imageUrl && (
           <Image src={imageUrl} alt="宇宙人" width={240} height={240} />
@@ -67,6 +71,6 @@ export const MyAlien = (props) => {
           <Text fontSize="2xl">✋　{paper}</Text>
         </Box>
       </Box>
-    </>
+    </Link>
   );
 };
