@@ -5,7 +5,6 @@ import { useState, useEffect } from "react";
 
 export const MyAlien = (props) => {
   const { tokenId } = props;
-  // console.log("hoge", tokenId);
 
   const Web3 = require("web3");
   const web3 = new Web3(
