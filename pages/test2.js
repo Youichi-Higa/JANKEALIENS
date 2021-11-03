@@ -10,14 +10,14 @@ export async function getServerSideProps() {
   const jankealiensABI = require("../MyNFT.json");
   const jankealiensAddress = "0x94fe135d72c57238df64eb6d4b3e7764b8a1cbbb";
   const jankealiens = new web3.eth.Contract(jankealiensABI, jankealiensAddress);
-  
+
   const metadataUri = [];
 
   await jankealiens.methods
     .tokenURI(4)
     .call()
     .then((result) => metadataUri.push(result));
-  
+
   console.log("テスト", metadataUri);
 
   // データをprops経由でページに渡します。
@@ -29,7 +29,7 @@ export default function test2({ metadataUri }) {
     <>
       <Header />
       <p>テスト２ページ</p>
-      <PlayerCard metadataUri={metadataUri} />
+      {/* <PlayerCard metadataUri={metadataUri} /> */}
     </>
   );
 }

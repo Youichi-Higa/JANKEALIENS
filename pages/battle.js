@@ -44,7 +44,7 @@ export default function Battle() {
 
   // cpuのパラメータ取得
   const cpuMetadataUrl =
-    "https://gateway.pinata.cloud/ipfs/QmS1BeXdcBTv9KdKkmrhvGwdL7d55LnA8cgreMY7ofSwDz";
+    "https://gateway.pinata.cloud/ipfs/QmXzJ7mvf4ffqopsgAWPsGSENVmVWxHooYj6gQje2wQA13";
   const [cpuImageUrl, setCpuImageUrl] = useState("");
   const [cpuHp, setCpuHp] = useState(undefined);
   const [cpuRock, setCpuRock] = useState(null);
@@ -125,14 +125,18 @@ export default function Battle() {
   useEffect(() => {
     if (playerHp <= 0) {
       setPlayerHp(0);
-      setMessage("あなたの負けです。。。");
-      setDamage("");
+      setTimeout(() => {
+        setMessage("あなたの負けです。。。");
+        setDamage("");
+      }, 1000);
     }
 
     if (cpuHp <= 0) {
       setCpuHp(0);
-      setMessage("あなたの勝ちです！！！");
-      setDamage("");
+      setTimeout(() => {
+        setMessage("あなたの勝ちです！！！");
+        setDamage("");
+      }, 1000);
     }
   }, [playerHp, cpuHp]);
 
@@ -224,9 +228,23 @@ export default function Battle() {
           </Box>
         </Box>
       </Flex>
-      <Text fontSize="2xl">{message}</Text>
-      <Text fontSize="2xl">{damage}</Text>
-      {/* <Text fontSize="2xl">{rps}</Text> */}
+
+      <Box
+        bg="white"
+        w="660px"
+        h="100px"
+        ml="30px"
+        borderRadius="2xl"
+        boxShadow="2xl"
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        justifyContent="space-around"
+      >
+        <Text fontSize="2xl">{message}</Text>
+        <Text fontSize="2xl">{damage}</Text>
+        {/* <Text fontSize="2xl">{rps}</Text> */}
+      </Box>
     </>
   );
 }

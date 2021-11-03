@@ -41,9 +41,10 @@ export const Header = () => {
           Wallet
         </button>
       ) : (
-        <button
-          className={styles.button}
-        >{`${addressFirst}...${addressEnd}`}</button>
+        <button className={styles.button}>
+          {`${addressFirst}...${addressEnd}`}
+          <br />0 RPS
+        </button>
       )}
     </header>
   );
