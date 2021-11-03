@@ -17,7 +17,7 @@
   align-items: center;
 }
 
-.headerTitle{
+.headerTitle {
   cursor: pointer;
 }
 
@@ -38,7 +38,7 @@
 
 .button {
   height: 56px;
-  width: 200px;
+  width: 300px;
   font-size: 24px;
   border-radius: 30px;
   box-shadow: 0px 0px 5px rgb(85, 85, 85);

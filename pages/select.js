@@ -1,5 +1,4 @@
 import { Flex } from "@chakra-ui/layout";
-import { resolveHref } from "next/dist/shared/lib/router/router";
 import { useEffect, useState } from "react";
 import { Header } from "../components/Header";
 import { MyAlien } from "../components/MyAlien";
@@ -13,13 +12,11 @@ export default function Select() {
   const jankealiensAddress = "0x94fe135d72c57238df64eb6d4b3e7764b8a1cbbb";
   const jankealiens = new web3.eth.Contract(jankealiensABI, jankealiensAddress);
 
-  const totalTokens = 8; // トークンの総数 コントラクトから取得できないコードでデプロイしてしまったのでべた打ち
+  const totalTokens = 9; // トークンの総数 コントラクトから取得できないコードでデプロイしてしまったのでべた打ち
   const firstTokenId = 3; // 最初のTokenId 提出する時は「3」を入力する
 
   const [userAddress, setUserAddress] = useState("");
   const [allOwnerAddress, setAllOwnerAddress] = useState([]);
-  // const [userTokenId, setUserTokenId] = useState([]);
-  // const [metadataUri, setMetadataUri] = useState([]);
 
   // Metamaskと繋いでいるaddressを取得
   const getUserAddress = async () => {
@@ -30,7 +27,6 @@ export default function Select() {
     return accounts[0];
   };
   getUserAddress();
-  // console.log("ユーザーアドレス", userAddress);
 
   // promise.allで所有者のアドレスをTokenIdの順番通りに取得
   let tasks = [];
@@ -55,8 +51,6 @@ export default function Select() {
       setAllOwnerAddress([...res]);
     });
   }, []);
-
-  // console.log(allOwnerAddress);
 
   const userTokenId = [];
 

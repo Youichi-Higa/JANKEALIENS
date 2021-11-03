@@ -1,17 +1,21 @@
 import { Heading } from "@chakra-ui/layout";
 import Link from "next/link";
-import { useState } from "react";
+import { memo, useState } from "react";
 import styles from "../styles/Home.module.css";
 
 export const Header = () => {
-  const [isAccount, setIsAccount] = useState(false);
+  // const [isAccount, setIsAccount] = useState(false);
+  const [userAddress, setUserAddress] = useState("");
+  console.log("ヘッダー", userAddress);
+
+  const addressFirst = userAddress.substr(0, 4);
+  const addressEnd = userAddress.substr(-4);
 
   const onClickMetamaskConnect = async () => {
     // ログイン
     const accounts = await ethereum.request({ method: "eth_requestAccounts" });
     if (typeof accounts !== "undefined") {
-      console.log("ヘッダー", accounts[0]);
-      setIsAccount(true);
+      setUserAddress(accounts[0]);
     }
   };
 
@@ -32,12 +36,14 @@ export const Header = () => {
           </Link>
         </div>
       </div>
-      {isAccount ? (
-        <button className={styles.button}>◯◯さん</button>
-      ) : (
+      {userAddress == "" ? (
         <button className={styles.button} onClick={onClickMetamaskConnect}>
           Wallet
         </button>
+      ) : (
+        <button
+          className={styles.button}
+        >{`${addressFirst}...${addressEnd}`}</button>
       )}
     </header>
   );
