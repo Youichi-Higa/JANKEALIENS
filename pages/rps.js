@@ -27,13 +27,13 @@ export default function Rps() {
       setRps(result.data.rps);
     };
     getRps();
-  }, []);
+  }, [rpsLocalUrl]);
 
   return (
     <>
       <Header />
       <p>RPS表示ページ</p>
-      <p>現在のRPS；{rps}</p>
+      <p>現在のRPS:{rps}</p>
     </>
   );
 }
