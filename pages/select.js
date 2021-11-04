@@ -27,6 +27,7 @@ export default function Select() {
     return accounts[0];
   };
   getUserAddress();
+  console.log("アクセスしているユーザーのアドレス", userAddress);
 
   // promise.allで所有者のアドレスをTokenIdの順番通りに取得
   let tasks = [];
