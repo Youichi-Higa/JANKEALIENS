@@ -1,6 +1,6 @@
 import { Heading } from "@chakra-ui/layout";
 import Link from "next/link";
-import { memo, useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 
 export const Header = () => {
@@ -17,6 +17,26 @@ export const Header = () => {
       setUserAddress(accounts[0]);
     }
   };
+
+  const axios = require("axios");
+  const [rps, setRps] = useState(0);
+
+  //😃😃😃デプロイ時に変更😃😃😃
+  const rpsLocalUrl = `http://localhost/LAB05/jankealiens_rps/rps_read.php?user_address=${userAddress}`;
+
+  useEffect(() => {
+    const getRps = async () => {
+      const result = await axios.get(rpsLocalUrl);
+      console.log(result);
+
+      if (typeof result.data.rps === "undefined") {
+        setRps(0);
+      } else {
+        setRps(result.data.rps);
+      }
+    };
+    getRps();
+  }, [rpsLocalUrl]); //😃😃😃デプロイ時に変更😃😃😃
 
   return (
     <header className={styles.header}>
@@ -42,7 +62,8 @@ export const Header = () => {
       ) : (
         <button className={styles.button}>
           {`${addressFirst}...${addressEnd}`}
-          <br />0 RPS
+          <br />
+          {rps} RPS
         </button>
       )}
     </header>
