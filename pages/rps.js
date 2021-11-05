@@ -5,7 +5,7 @@ export default function Rps() {
   const axios = require("axios");
 
   const [userAddress, setUserAddress] = useState("");
-  const [rps, setRps] = useState();
+  const [rps, setRps] = useState(0);
 
   // Metamaskと繋いでいるaddressを取得
   const getUserAddress = async () => {
@@ -25,7 +25,12 @@ export default function Rps() {
     const getRps = async () => {
       const result = await axios.get(rpsLocalUrl);
       console.log(result);
-      setRps(result.data.rps);
+
+      if (typeof result.data.rps === "undefined") {
+        setRps(0);
+      } else {
+        setRps(result.data.rps);
+      }
     };
     getRps();
   }, [rpsLocalUrl]); //😃😃😃デプロイ時に変更😃😃😃

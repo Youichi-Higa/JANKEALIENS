@@ -7,7 +7,9 @@ import { Header } from "../components/Header";
 export default function Battle() {
   const router = useRouter();
   const tokenId = router.query.tokenid;
+  const userAddress = ethereum?.selectedAddress;
   // console.log("バトルページ", tokenId);
+  console.log("バトルページ", userAddress);
 
   const Web3 = require("web3");
   const web3 = new Web3(
@@ -122,10 +124,25 @@ export default function Battle() {
     }
   };
 
-  // 勝敗結果の表示
+  // 勝敗決定後の処理
+
+  //😃😃😃デプロイ時に変更😃😃😃
+  const rpsLocalUrl = `http://localhost/LAB05/jankealiens_rps/rps_add.php`;
+
   useEffect(() => {
     if (cpuHp <= 0) {
-      setCpuHp(0);
+      const sendData = {
+        user_address: userAddress,
+        rps: 4, //勝ったら4RPS獲得
+      };
+
+      axios
+        .post(rpsLocalUrl, sendData)
+        .then((response) => {
+          console.log("response body:", response.data);
+        })
+        .catch((e) => console.error(e));
+
       setTimeout(() => {
         setMessage("あなたの勝ちです！！！");
         setDamage("");
@@ -134,7 +151,18 @@ export default function Battle() {
     }
 
     if (playerHp <= 0) {
-      setPlayerHp(0);
+      const sendData = {
+        user_address: userAddress,
+        rps: 2, //負けても2RPS獲得
+      };
+
+      axios
+        .post(rpsLocalUrl, sendData)
+        .then((response) => {
+          console.log("response body:", response.data);
+        })
+        .catch((e) => console.error(e));
+
       setTimeout(() => {
         setMessage("あなたの負けです。。。");
         setDamage("");
@@ -165,7 +193,11 @@ export default function Battle() {
           )}
 
           <Box textAlign="center">
-            <Text fontSize="3xl">HP　{playerHp}</Text>
+            {playerHp > 0 ? (
+              <Text fontSize="3xl">HP　{playerHp}</Text>
+            ) : (
+              <Text fontSize="3xl">HP　0</Text>
+            )}
             <br />
             <Text fontSize="2xl">あなたの手を選択↓</Text>
 
@@ -236,7 +268,12 @@ export default function Battle() {
           )}
 
           <Box textAlign="center">
-            <Text fontSize="3xl">HP　{cpuHp}</Text>
+            {cpuHp > 0 ? (
+              <Text fontSize="3xl">HP　{cpuHp}</Text>
+            ) : (
+              <Text fontSize="3xl">HP　0</Text>
+            )}
+
             <br />
             <Text fontSize="xl">あいての手</Text>
             <Text fontSize="3xl">✊　{cpuRock}</Text>

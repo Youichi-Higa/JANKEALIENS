@@ -28,7 +28,7 @@ export const MyAlien = (props) => {
     const getMetadata = async () => {
       const metadataUri = await jankealiens.methods.tokenURI(tokenId).call();
       const result = await axios.get(metadataUri);
-      console.log("useEffectの中", result);
+      // console.log("useEffectの中", result);
       setImageUrl(result.data.image);
       setName(result.data?.name);
       setHp(result.data.attributes?.hp);

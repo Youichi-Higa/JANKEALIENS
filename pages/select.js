@@ -19,14 +19,17 @@ export default function Select() {
   const [allOwnerAddress, setAllOwnerAddress] = useState([]);
 
   // Metamaskと繋いでいるaddressを取得
-  const getUserAddress = async () => {
-    const accounts = await ethereum.request({
-      method: "eth_requestAccounts", //Metamaskでアドレスを取得すると全て小文字で取得される
-    });
-    setUserAddress(accounts[0]);
-    return accounts[0];
-  };
-  getUserAddress();
+  useEffect(() => {
+    const getUserAddress = async () => {
+      const accounts = await ethereum.request({
+        method: "eth_requestAccounts", //Metamaskでアドレスを取得すると全て小文字で取得される
+      });
+      setUserAddress(accounts[0]);
+      return accounts[0];
+    };
+    getUserAddress();
+  }, [userAddress]);
+
   console.log("アクセスしているユーザーのアドレス", userAddress);
 
   // promise.allで所有者のアドレスをTokenIdの順番通りに取得

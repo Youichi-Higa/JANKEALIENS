@@ -4,9 +4,8 @@ import { memo, useState } from "react";
 import styles from "../styles/Home.module.css";
 
 export const Header = () => {
-  // const [isAccount, setIsAccount] = useState(false);
   const [userAddress, setUserAddress] = useState("");
-  console.log("ヘッダー", userAddress);
+  // console.log("ヘッダー", userAddress);
 
   const addressFirst = userAddress.substr(0, 4);
   const addressEnd = userAddress.substr(-4);
