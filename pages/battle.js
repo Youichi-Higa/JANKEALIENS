@@ -64,8 +64,9 @@ export default function Battle() {
     getMetadata();
   }, []);
 
-  const [message, setMessage] = useState("勝負だ！！！");
+  const [message, setMessage] = useState("勝負！！！");
   const [damage, setDamage] = useState("");
+  const [rpsMsg, setRpsMsg] = useState("");
 
   // グーをクリック時の関数
   const selectRock = () => {
@@ -123,20 +124,22 @@ export default function Battle() {
 
   // 勝敗結果の表示
   useEffect(() => {
-    if (playerHp <= 0) {
-      setPlayerHp(0);
-      setTimeout(() => {
-        setMessage("あなたの負けです。。。");
-        setDamage("");
-      }, 1000);
-    }
-
     if (cpuHp <= 0) {
       setCpuHp(0);
       setTimeout(() => {
         setMessage("あなたの勝ちです！！！");
         setDamage("");
-      }, 1000);
+        setRpsMsg("4RPSを獲得");
+      }, 1500);
+    }
+
+    if (playerHp <= 0) {
+      setPlayerHp(0);
+      setTimeout(() => {
+        setMessage("あなたの負けです。。。");
+        setDamage("");
+        setRpsMsg("2RPSを獲得");
+      }, 1500);
     }
   }, [playerHp, cpuHp]);
 
@@ -165,39 +168,53 @@ export default function Battle() {
             <Text fontSize="3xl">HP　{playerHp}</Text>
             <br />
             <Text fontSize="2xl">あなたの手を選択↓</Text>
-            <Text
-              fontSize="3xl"
-              onClick={selectRock}
-              cursor="pointer"
-              _hover={{
-                background: "teal.200",
-                color: "white",
-              }}
-            >
-              ✊　{playerRock}
-            </Text>
-            <Text
-              fontSize="3xl"
-              onClick={selectScissors}
-              cursor="pointer"
-              _hover={{
-                background: "teal.200",
-                color: "white",
-              }}
-            >
-              ✌️　{playerScissors}
-            </Text>
-            <Text
-              fontSize="3xl"
-              onClick={selectPaper}
-              cursor="pointer"
-              _hover={{
-                background: "teal.200",
-                color: "white",
-              }}
-            >
-              ✋　{playerPaper}
-            </Text>
+
+            {/* 勝敗が決まった後にクリックできないようにするための三項演算子 */}
+            {playerHp > 0 && cpuHp > 0 ? (
+              <>
+                <Text
+                  fontSize="3xl"
+                  onClick={selectRock}
+                  cursor="pointer"
+                  _hover={{
+                    background: "teal.200",
+                    color: "white",
+                  }}
+                >
+                  ✊　{playerRock}
+                </Text>
+
+                <Text
+                  fontSize="3xl"
+                  onClick={selectScissors}
+                  cursor="pointer"
+                  _hover={{
+                    background: "teal.200",
+                    color: "white",
+                  }}
+                >
+                  ✌️　{playerScissors}
+                </Text>
+
+                <Text
+                  fontSize="3xl"
+                  onClick={selectPaper}
+                  cursor="pointer"
+                  _hover={{
+                    background: "teal.200",
+                    color: "white",
+                  }}
+                >
+                  ✋　{playerPaper}
+                </Text>
+              </>
+            ) : (
+              <>
+                <Text fontSize="3xl">✊　{playerRock}</Text>
+                <Text fontSize="3xl">✌️　{playerScissors}</Text>
+                <Text fontSize="3xl">✋　{playerPaper}</Text>
+              </>
+            )}
           </Box>
         </Box>
 
@@ -243,7 +260,7 @@ export default function Battle() {
       >
         <Text fontSize="2xl">{message}</Text>
         <Text fontSize="2xl">{damage}</Text>
-        {/* <Text fontSize="2xl">{rps}</Text> */}
+        <Text fontSize="2xl">{rpsMsg}</Text>
       </Box>
     </>
   );
