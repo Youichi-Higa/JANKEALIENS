@@ -7,9 +7,22 @@ import { Header } from "../components/Header";
 export default function Battle() {
   const router = useRouter();
   const tokenId = router.query.tokenid;
-  const userAddress = ethereum?.selectedAddress;
-  // console.log("バトルページ", tokenId);
-  console.log("バトルページ", userAddress);
+
+  // Metamaskと繋いでいるaddressを取得
+  const [userAddress, setUserAddress] = useState("");
+
+  useEffect(() => {
+    const getUserAddress = async () => {
+      const accounts = await ethereum.request({
+        method: "eth_requestAccounts", //Metamaskでアドレスを取得すると全て小文字で取得される
+      });
+      setUserAddress(accounts[0]);
+      return accounts[0];
+    };
+    getUserAddress();
+  }, [userAddress]);
+
+  console.log("アクセスしているユーザーのアドレス", userAddress);
 
   const Web3 = require("web3");
   const web3 = new Web3(
