@@ -1,4 +1,4 @@
-import { Flex } from "@chakra-ui/layout";
+import { Flex, Text } from "@chakra-ui/layout";
 import { useEffect, useState } from "react";
 import { Header } from "../components/Header";
 import { MyAlien } from "../components/MyAlien";
@@ -30,7 +30,7 @@ export default function Select() {
     getUserAddress();
   }, [userAddress]);
 
-  console.log("アクセスしているユーザーのアドレス", userAddress);
+  // console.log("アクセスしているユーザーのアドレス", userAddress);
 
   // promise.allで所有者のアドレスをTokenIdの順番通りに取得
   let tasks = [];
@@ -64,12 +64,12 @@ export default function Select() {
     }
   }
 
-  console.log("ユーザー所有のトークンID", userTokenId);
+  // console.log("ユーザー所有のトークンID", userTokenId);
 
   return (
     <>
       <Header />
-      <p>戦わせる宇宙人を選択してください</p>
+      <Text fontSize="3xl" m="20px">戦わせる宇宙人を選択してください</Text>
 
       <Flex wrap="wrap">
         {userTokenId.map((item, index) => (

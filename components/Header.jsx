@@ -1,11 +1,11 @@
 import { Heading } from "@chakra-ui/layout";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import styles from "../styles/Home.module.css";
 
-export const Header = () => {
+// eslint-disable-next-line react/display-name
+export const Header = memo(() => {
   const [userAddress, setUserAddress] = useState("");
-  // console.log("ヘッダー", userAddress);
 
   const addressFirst = userAddress.substr(0, 4);
   const addressEnd = userAddress.substr(-4);
@@ -68,4 +68,4 @@ export const Header = () => {
       )}
     </header>
   );
-};
+});

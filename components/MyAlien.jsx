@@ -45,7 +45,7 @@ export const MyAlien = (props) => {
         bg="white"
         w="320px"
         h="500px"
-        m="30px"
+        m="20px"
         borderRadius="2xl"
         boxShadow="2xl"
         display="flex"

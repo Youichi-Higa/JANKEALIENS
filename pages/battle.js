@@ -159,7 +159,7 @@ export default function Battle() {
       setTimeout(() => {
         setMessage("あなたの勝ちです！！！");
         setDamage("");
-        setRpsMsg("4RPSを獲得");
+        setRpsMsg("4 RPSを獲得");
       }, 1500);
     }
 
@@ -179,7 +179,7 @@ export default function Battle() {
       setTimeout(() => {
         setMessage("あなたの負けです。。。");
         setDamage("");
-        setRpsMsg("2RPSを獲得");
+        setRpsMsg("2 RPSを獲得");
       }, 1500);
     }
   }, [playerHp, cpuHp]);
@@ -187,7 +187,7 @@ export default function Battle() {
   return (
     <>
       <Header />
-      <Flex>
+      <Flex justifyContent="center">
         {/* player */}
         <Box
           bg="white"
@@ -300,7 +300,7 @@ export default function Battle() {
         bg="white"
         w="660px"
         h="100px"
-        ml="30px"
+        m="auto"
         borderRadius="2xl"
         boxShadow="2xl"
         display="flex"
