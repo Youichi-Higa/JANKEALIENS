@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { Header } from "../components/Header";
 
-export default function Rps() {
+export default function Rps2() {
   const axios = require("axios");
 
   const [userAddress, setUserAddress] = useState("");
-  const [rps, setRps] = useState();
+  const winRps = 4;
+  const loseRps = 2;
 
   // Metamaskと繋いでいるaddressを取得
   const getUserAddress = async () => {
@@ -19,22 +20,26 @@ export default function Rps() {
   console.log("アクセスしているユーザーのアドレス", userAddress);
 
   //😃😃😃デプロイ時に変更😃😃😃
-  const rpsLocalUrl = `http://localhost/LAB05/jankealiens_rps/rps_read.php?user_address=${userAddress}`;
+  const rpsLocalUrl = `http://localhost/LAB05/jankealiens_rps/rps_add.php`;
+
+  const sendData = {
+    user_address: userAddress,
+    rps: winRps,
+  };
 
   useEffect(() => {
-    const getRps = async () => {
-      const result = await axios.get(rpsLocalUrl);
-      console.log(result);
-      setRps(result.data.rps);
-    };
-    getRps();
-  }, [rpsLocalUrl]); //😃😃😃デプロイ時に変更😃😃😃
+    axios
+      .post(rpsLocalUrl, sendData)
+      .then((response) => {
+        console.log("response body:", response.data);
+      })
+      .catch((e) => console.error(e));
+  }, [userAddress]);
 
   return (
     <>
       <Header />
-      <p>RPS表示ページ</p>
-      <p>現在のRPS:{rps}</p>
+      <p>RPS加算ページ</p>
     </>
   );
 }
