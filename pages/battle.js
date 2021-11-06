@@ -140,7 +140,8 @@ export default function Battle() {
   // 勝敗決定後の処理
 
   //😃😃😃デプロイ時に変更😃😃😃
-  const rpsLocalUrl = `http://localhost/LAB05/jankealiens_rps/rps_add.php`;
+  const rpsUrl = `https://jankealiens-rps.lolipop.io/rps_add.php`; //デプロイ
+  // const rpsUrl = `http://localhost/LAB05/jankealiens_rps/rps_add.php`; //ローカル
 
   useEffect(() => {
     if (cpuHp <= 0) {
@@ -150,7 +151,7 @@ export default function Battle() {
       };
 
       axios
-        .post(rpsLocalUrl, sendData)
+        .post(rpsUrl, sendData)
         .then((response) => {
           console.log("response body:", response.data);
         })
@@ -170,7 +171,7 @@ export default function Battle() {
       };
 
       axios
-        .post(rpsLocalUrl, sendData)
+        .post(rpsUrl, sendData)
         .then((response) => {
           console.log("response body:", response.data);
         })

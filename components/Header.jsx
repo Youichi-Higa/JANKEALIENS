@@ -22,11 +22,12 @@ export const Header = memo(() => {
   const [rps, setRps] = useState(0);
 
   //😃😃😃デプロイ時に変更😃😃😃
-  const rpsLocalUrl = `http://localhost/LAB05/jankealiens_rps/rps_read.php?user_address=${userAddress}`;
+  const rpsUrl = `https://jankealiens-rps.lolipop.io/rps_read.php?user_address=${userAddress}`; //デプロイ
+  // const rpsUrl = `http://localhost/LAB05/jankealiens_rps/rps_read.php?user_address=${userAddress}`; //ローカル
 
   useEffect(() => {
     const getRps = async () => {
-      const result = await axios.get(rpsLocalUrl);
+      const result = await axios.get(rpsUrl);
       console.log(result);
 
       if (typeof result.data.rps === "undefined") {
@@ -36,7 +37,7 @@ export const Header = memo(() => {
       }
     };
     getRps();
-  }, [rpsLocalUrl]); //😃😃😃デプロイ時に変更😃😃😃
+  }, [rpsUrl]);
 
   return (
     <header className={styles.header}>
