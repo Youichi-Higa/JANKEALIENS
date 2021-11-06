@@ -4,8 +4,8 @@ import { Header } from "../components/Header";
 
 export default function catalog() {
   const metadataUrl = [
-    "https://gateway.pinata.cloud/ipfs/QmS1BeXdcBTv9KdKkmrhvGwdL7d55LnA8cgreMY7ofSwDz",
-    "https://gateway.pinata.cloud/ipfs/QmXzJ7mvf4ffqopsgAWPsGSENVmVWxHooYj6gQje2wQA13",
+    "https://gateway.pinata.cloud/ipfs/QmcMoRCSY8odBQAJ7b2tTwm2fQD4UbeSfyK6hYvvhLDEf4",
+    "https://gateway.pinata.cloud/ipfs/QmYpGvVXUSTcpkBi19LtUz8T7WvrjJHeJzM41RZKckT8hi",
   ];
 
   return (
