@@ -8,8 +8,8 @@ export default function Home() {
       <Header />
       <div className={styles.Alien1_wrapper}>
         <Image
-          src="/Alien1.png"
-          alt="宇宙人１"
+          src="/flamingorilla.png"
+          alt="フラミンゴリラ星人"
           width={250}
           height={250}
           className={styles.image}
@@ -17,8 +17,8 @@ export default function Home() {
       </div>
       <div className={styles.Alien2_wrapper}>
         <Image
-          src="/Alien2.png"
-          alt="宇宙人１"
+          src="/irukappa.png"
+          alt="イルカッパ星人"
           width={200}
           height={200}
           className={styles.image}
@@ -26,8 +26,8 @@ export default function Home() {
       </div>
       <div className={styles.Alien3_wrapper}>
         <Image
-          src="/Alien3.png"
-          alt="宇宙人１"
+          src="/butako.png"
+          alt="ブタコ星人"
           width={400}
           height={400}
           className={styles.image}
@@ -35,8 +35,8 @@ export default function Home() {
       </div>
       <div className={styles.Alien4_wrapper}>
         <Image
-          src="/Alien4.png"
-          alt="宇宙人１"
+          src="/katatumurisu.png"
+          alt="カタツムリス星人"
           width={180}
           height={180}
           className={styles.image}
@@ -44,8 +44,8 @@ export default function Home() {
       </div>
       <div className={styles.Alien5_wrapper}>
         <Image
-          src="/Alien5.png"
-          alt="宇宙人１"
+          src="/zousagi.png"
+          alt="ゾウサギ星人"
           width={500}
           height={500}
           className={styles.image}
