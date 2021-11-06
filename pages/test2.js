@@ -33,3 +33,4 @@ export default function test2({ metadataUri }) {
     </>
   );
 }
+

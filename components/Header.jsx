@@ -6,6 +6,7 @@ import styles from "../styles/Home.module.css";
 // eslint-disable-next-line react/display-name
 export const Header = memo(() => {
   const [userAddress, setUserAddress] = useState("");
+  const [reload, setReload] = useState(false);
 
   const addressFirst = userAddress.substr(0, 4);
   const addressEnd = userAddress.substr(-4);
@@ -16,6 +17,10 @@ export const Header = memo(() => {
     if (typeof accounts !== "undefined") {
       setUserAddress(accounts[0]);
     }
+  };
+
+  const onClickReload = () => {
+    setReload(!reload);
   };
 
   const axios = require("axios");
@@ -37,7 +42,7 @@ export const Header = memo(() => {
       }
     };
     getRps();
-  }, [rpsUrl]);
+  }, [rpsUrl, reload]);
 
   return (
     <header className={styles.header}>
@@ -61,7 +66,7 @@ export const Header = memo(() => {
           Wallet
         </button>
       ) : (
-        <button className={styles.button}>
+        <button className={styles.button} onClick={onClickReload}>
           {`${addressFirst}...${addressEnd}`}
           <br />
           {rps} RPS
